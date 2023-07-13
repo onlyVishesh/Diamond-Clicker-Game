@@ -449,7 +449,7 @@ let buyMines = () => {
         n3++
         n++
         minesIncrease.innerHTML = n3+1
-        minesCost.innerHTML = parseFloat(minesCost.innerHTML) + Math.floor(Math.pow(4.5,n3+2))*10
+        minesCost.innerHTML = parseFloat(minesCost.innerHTML) + Math.floor(Math.pow(4.9,n3+2))*10
         x = x*n3
         clickIncrease.innerHTML = x*2
         cps = parseFloat(cpsIncrease.innerHTML);
