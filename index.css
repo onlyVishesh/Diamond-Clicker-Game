@@ -57,7 +57,8 @@ a {
 
 .intro {
     /*Display stuff*/
-    display: block;
+    display: flex;
+    justify-content: center;
     /*Positioning stuff*/
     position: absolute;
     left: 0;
@@ -74,14 +75,12 @@ a {
 
 .how-to-play {
     /*Positioning stuff*/
-    position: absolute;
-    left: 33%;
-    top: 2vw;
     z-index: 101;
     /*Box model stuff*/
     width: 31vw;
-    height: 31vw;
+    height: max-content;
     padding: 10px;
+    margin-top: 2vw;
     border-radius: 5vw;
     background-color: #fff;
     /*Typography stuff*/
@@ -113,8 +112,6 @@ a {
 /* how to start style */
 
 .play {
-    /*Positioning stuff*/
-
     /*Typography stuff*/
     text-align: center;
 }
@@ -122,9 +119,6 @@ a {
 .tap-to-play {
     font-size: 2.3vw;
     line-height: 3vw;
-    position: absolute;
-    left: 17.5%;
-    bottom: 2%;
 }
 
 /* end screen style */
@@ -132,6 +126,7 @@ a {
 .outro {
     /*Display stuff*/
     display: none;
+    justify-content: center;
     /*Positioning stuff*/
     position: absolute;
     left: 0;
@@ -148,13 +143,12 @@ a {
 
 .score {
     /*Positioning stuff*/
-    position: absolute;
-    left: 33%;
-    top: 2vw;
     z-index: 101;
     /*Box model stuff*/
-    width: 40vw;
-    height: 30vw;
+    margin-top: 2vw;
+
+    width: max-content;
+    height: max-content;
     padding: 10px;
     border-radius: 5vw;
     background-color: #fff;
@@ -180,7 +174,7 @@ a {
     padding-top: 1vw;
     /*Typography stuff*/
     font-size: 2vw;
-    text-align: left;
+    text-align: center;
     /*Miscellaneous*/
     line-height: 2.3vw;
 }
@@ -188,12 +182,6 @@ a {
 /* end screen restart style */
 
 .play-again {
-    /*Positioning stuff*/
-    position: absolute;
-    left: 20%;
-    bottom: 2%;
-    /*Typography stuff*/
-    text-align: center;
 }
 
 /* game name, left and right style */
@@ -263,7 +251,7 @@ h5 {
     /*Box model stuff*/
     width: 27vw;
     height: 27vw;
-    border-radius: 8.2vw;
+    border-radius: 2vw;
     background-image: url("./assets/diamond.png");
     background-size: 27vw;
     /*Manipulations stuff*/

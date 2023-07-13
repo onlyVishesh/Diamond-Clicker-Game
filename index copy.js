@@ -9,33 +9,6 @@ document.querySelector(".intro").onclick = ()=>{
 
 }
 
-// function playMusic(){
-
-// }
-
-
-// function bg() {
-//     window.onblur = function () {
-        
-//         bgm.muted = true
-//       };
-     
-//      window.onfocus = function () {
-     
-//          bgm.muted = false
-//          };
-
-// }
-
-// let bgm = document.getElementById("bgmusic")
-
-// setInterval(bg(),1000)
-
-
-
-
- 
-
 function updateOutro() {
     document.querySelector(".totalClicks-span").innerHTML = totalClicks
     document.querySelector(".totalDiamonds-span").innerHTML = parseFloat(diamond.textContent) + totalSpend
@@ -50,41 +23,38 @@ document.querySelector(".outro").onclick = ()=>{
 
 
 function addEffects() {
-    if (parseFloat(diamond.innerHTML) <= parseFloat(pickaxeCost.innerHTML) || (pickaxeLevel.textContent === "Max"  )) {
+    if (parseFloat(diamond.innerHTML) >= parseFloat(pickaxeCost.innerHTML)) {
+
+        document.querySelector(".pickaxe-upgrade").classList.remove("btn-red") 
+        document.querySelector(".pickaxe-upgrade").classList.add("btn-green") 
+    }
+    else{
         document.querySelector(".pickaxe-upgrade").classList.remove("btn-green") 
         document.querySelector(".pickaxe-upgrade").classList.add("btn-red")
 
     }
-    else{
-        document.querySelector(".pickaxe-upgrade").classList.remove("btn-red") 
-        document.querySelector(".pickaxe-upgrade").classList.add("btn-green") 
-        
 
+    if (parseFloat(diamond.innerHTML) >= parseFloat(minerCost.innerHTML)) {
+
+        document.querySelector(".miner-upgrade").classList.remove("btn-red") 
+        document.querySelector(".miner-upgrade").classList.add("btn-green") 
     }
-
-    if (parseFloat(diamond.innerHTML) <= parseFloat(minerCost.innerHTML) || (minerLevel.textContent === "Max"  )) {
+    else{
         document.querySelector(".miner-upgrade").classList.remove("btn-green") 
         document.querySelector(".miner-upgrade").classList.add("btn-red")
+
+    }
+
+    if (parseFloat(diamond.innerHTML) >= parseFloat(minesCost.innerHTML)) {
+
+        document.querySelector(".mines-upgrade").classList.remove("btn-red") 
+        document.querySelector(".mines-upgrade").classList.add("btn-green") 
     }
     else{
-        document.querySelector(".miner-upgrade").classList.remove("btn-red") 
-        document.querySelector(".miner-upgrade").classList.add("btn-green")
-        
-
-    }
-
-    if (parseFloat(diamond.innerHTML) <= parseFloat(minesCost.innerHTML) || (minesLevel.textContent === "Max"  )) {
         document.querySelector(".mines-upgrade").classList.remove("btn-green") 
         document.querySelector(".mines-upgrade").classList.add("btn-red")
-         
-    }
-    else{
-        document.querySelector(".mines-upgrade").classList.remove("btn-red") 
-        document.querySelector(".mines-upgrade").classList.add("btn-green")
-        
 
     }
-// function to reset game and set local storage to 0
 }
 
 
@@ -112,12 +82,13 @@ setInterval(()=>{
     if (totalClicks>0) {
         displayIntro.style.display = "none"
     }
-    if (pickaxeLevel.textContent === "Max" &&
-        minerLevel.textContent === "Max" &&
-        minesLevel.textContent === "Max" &&
+    if (document.querySelector(".pickaxe-upgrade-cost-amount").textContent === "Unavalable" &&
+        document.querySelector(".miner-upgrade-cost-amount").textContent === "Unavalable" &&
+        document.querySelector(".mines-upgrade-cost-amount").textContent === "Unavalable" &&
         parseFloat(diamond.textContent) > 999999999999 ){
             updateOutro()
             displayOutro.style.display = "block"
+            console.log("end")
         }
     addEffects()
 },10)
@@ -149,7 +120,6 @@ setInterval(() => {
 function playAudio() {
     new Audio("assets/mouse-clicks-6849_pYBi0fH6.mp3").play();
   }
-
 
 document.querySelector(".diamond-img").onclick = () => {
     incrementDiamond(x);
@@ -276,13 +246,6 @@ function autoClickDisplay(event) {
     
 
 }
-function playBuy() {
-    new Audio("assets/buy.mp3").play();
-    }
-    
-function playCantBuy() {
-new Audio("assets/cancel.mp3").play();
-}
 
 // For pickaxe Upgrade
 
@@ -292,7 +255,6 @@ let clickIncrease = document.querySelector(".click-increase")
 
 let buyPickaxe = () => {
     if (parseFloat(diamond.innerHTML) >= parseFloat(pickaxeCost.innerHTML) && parseFloat(pickaxeLevel.innerHTML)<30) {
-        playBuy()
         diamond.innerHTML = parseFloat(diamond.innerHTML) - parseFloat(pickaxeCost.innerHTML)
         totalSpend += parseFloat(pickaxeCost.innerHTML)
         pickaxeLevel.innerHTML = parseFloat(pickaxeLevel.innerHTML) +1;
@@ -306,7 +268,7 @@ let buyPickaxe = () => {
             document.querySelector(".pickaxe-upgrade-cost-amount").innerHTML = "Unavalable"
                 
         }
-    } else playCantBuy() 
+    }
 }
 
 
@@ -352,6 +314,7 @@ function changePickaxeScr() {
 
 document.querySelector(".pickaxe-upgrade").onclick = () => {
     buyPickaxe() 
+    playAudio()
 }
 
 
@@ -365,7 +328,6 @@ let cpsIncrease = document.querySelector(".cps-increase")
 
 let buyMiner = () => {
     if (parseFloat(diamond.innerHTML) >= parseFloat(minerCost.innerHTML) && parseFloat(minerLevel.innerHTML)<20) {
-        playBuy()
         diamond.innerHTML = parseFloat(diamond.innerHTML) - parseFloat(minerCost.innerHTML)
         totalSpend += parseFloat(minerCost.innerHTML)
         minerLevel.innerHTML = parseFloat(minerLevel.innerHTML) + 1;
@@ -380,7 +342,7 @@ let buyMiner = () => {
             
         }
 
-    }else playCantBuy()
+    }
 }
 
 
@@ -424,6 +386,7 @@ function changeMinerScr() {
 
 document.querySelector(".miner-upgrade").onclick = () => {
     buyMiner() 
+    playAudio()
 }
 
 setInterval(() => {
@@ -442,14 +405,13 @@ let n3 = 1
 
 let buyMines = () => {
     if (parseFloat(diamond.innerHTML) >= parseFloat(minesCost.innerHTML) && parseFloat(minesLevel.innerHTML)<10) {
-        playBuy()
         diamond.innerHTML = parseFloat(diamond.innerHTML) - parseFloat(minesCost.innerHTML)
         totalSpend += parseFloat(minesCost.innerHTML)
         minesLevel.innerHTML = parseFloat(minesLevel.innerHTML) +1;
         n3++
         n++
         minesIncrease.innerHTML = n3+1
-        minesCost.innerHTML = parseFloat(minesCost.innerHTML) + Math.floor(Math.pow(4.5,n3+2))*10
+        minesCost.innerHTML = parseFloat(minesCost.innerHTML) + Math.floor(Math.pow(4.5,n3+3))*10
         x = x*n3
         clickIncrease.innerHTML = x*2
         cps = parseFloat(cpsIncrease.innerHTML);
@@ -461,12 +423,13 @@ let buyMines = () => {
             document.querySelector(".mines-upgrade-cost-amount").innerHTML = "Unavalable"
                 
         }
-    } else playCantBuy()
+    }
 }
 
 
 document.querySelector(".mines-upgrade").onclick = () => {
     buyMines() 
+    playAudio()
 }
 
 
@@ -502,23 +465,23 @@ function saveGame() {
 
         // saving pickaxe upgrade data
 
-        pickaxeCostValue:pickaxeCost.innerHTML,
-        pickaxeLevelValue:pickaxeLevel.innerHTML,
-        clickIncreaseValue:clickIncrease.innerHTML,
+        pickaxeCostValue:parseFloat(pickaxeCost.innerHTML),
+        pickaxeLevelValue:parseFloat(pickaxeLevel.innerHTML),
+        clickIncreaseValue:parseFloat(clickIncrease.innerHTML),
         pickaxeImageSrc : document.querySelector(".pickaxe-icon").src,
 
         // saving miner upgrade data
 
         n2Value:n2,
-        minerCostValue:minerCost.innerHTML,
-        minerLevelValue:minerLevel.innerHTML,
-        cpsIncreaseValue:cpsIncrease.innerHTML,
+        minerCostValue:parseFloat(minerCost.innerHTML),
+        minerLevelValue:parseFloat(minerLevel.innerHTML),
+        cpsIncreaseValue:parseFloat(cpsIncrease.innerHTML),
         minerImageSrc : document.querySelector(".miner-icon").src,
 
         n3Value:n3,
-        minesCostValue:minesCost.innerHTML,
-        minesLevelValue:minesLevel.innerHTML,
-        minesIncreaseValue:minesIncrease.innerHTML,
+        minesCostValue:parseFloat(minesCost.innerHTML),
+        minesLevelValue:parseFloat(minesLevel.innerHTML),
+        minesIncreaseValue:parseFloat(minesIncrease.innerHTML),
         minesImageSrc : document.querySelector(".mines-icon").src,
 
 
@@ -613,14 +576,9 @@ function loadGame(){
     }
 }
 
-
-
 // loading data of refresh
 window.onload = () => {
     loadGame()
-
-
-    
 }
 
 // save data on ctrl + s
@@ -631,8 +589,6 @@ document.addEventListener("keydown",function(event){
     }
 },false)
 
-// function to reset game and set local storage to 0
-
 function resetGame() {
     playAudio()
     if(confirm("Do you want to reset the game ?")){
@@ -642,8 +598,6 @@ function resetGame() {
     }
 
 }
-
-
 
 document.querySelector(".reset").onclick = ()=>{
     playAudio()
